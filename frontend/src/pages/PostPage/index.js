@@ -8,7 +8,7 @@ import {
   requestDeleteLike,
 } from '../../service/requests';
 
-import { Button, BUTTON_SIZE, Card, ProfileChip } from '../../components';
+import { Button, BUTTON_SIZE, Card, ProfileChip, ViewCount } from '../../components';
 import { Viewer } from '@toast-ui/react-editor';
 
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -24,6 +24,7 @@ import {
   IssuedDate,
   Mission,
   ProfileChipStyle,
+  MainHeader,
   SubHeader,
   Tags,
   Title,
@@ -211,7 +212,10 @@ const PostPage = () => {
                 <IssuedDate>{new Date(post?.createdAt).toLocaleString('ko-KR')}</IssuedDate>
               </SubHeaderRightContent>
             </SubHeader>
-            <Title>{post?.title}</Title>
+            <MainHeader>
+              <Title>{post?.title}</Title>
+              <ViewCount count={2223} />
+            </MainHeader>
             <ProfileChip
               imageSrc={post?.author?.imageUrl}
               css={ProfileChipStyle}

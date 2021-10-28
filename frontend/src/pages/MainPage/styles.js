@@ -71,6 +71,11 @@ const ProfileChipLocationStyle = css`
   }
 `;
 
+const SideContent = styled.div`
+  flex-shrink: 0;
+  text-align: right;
+`;
+
 const CardStyle = css`
   transition: transform 0.2s ease;
   cursor: pointer;
@@ -93,5 +98,6 @@ export {
   Title,
   Tags,
   ProfileChipLocationStyle,
+  SideContent,
   CardStyle,
 };

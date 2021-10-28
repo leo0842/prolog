@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, FilterList, Pagination, ProfileChip } from '../../components';
+import { Button, Card, FilterList, Pagination, ProfileChip, ViewCount } from '../../components';
 import { useHistory } from 'react-router';
 import { PATH } from '../../constants';
 import PencilIcon from '../../assets/images/pencil_icon.svg';
@@ -16,6 +16,7 @@ import {
   PostListContainer,
   ProfileChipLocationStyle,
   SelectedFilterList,
+  SideContent,
   Tags,
   Title,
 } from './styles';
@@ -190,13 +191,16 @@ const MainPage = () => {
                       ))}
                     </Tags>
                   </Description>
-                  <ProfileChip
-                    imageSrc={author.imageUrl}
-                    css={ProfileChipLocationStyle}
-                    onClick={goProfilePage(author.username)}
-                  >
-                    {author.nickname}
-                  </ProfileChip>
+                  <SideContent>
+                    <ProfileChip
+                      imageSrc={author.imageUrl}
+                      css={ProfileChipLocationStyle}
+                      onClick={goProfilePage(author.username)}
+                    >
+                      {author.nickname}
+                    </ProfileChip>
+                    <ViewCount count={12344} />
+                  </SideContent>
                 </Content>
               </Card>
             );

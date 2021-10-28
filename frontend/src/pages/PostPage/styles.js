@@ -42,6 +42,11 @@ const CardInner = styled.div`
   }
 `;
 
+const MainHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const SubHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -69,6 +74,7 @@ const Title = styled.div`
   color: ${COLOR.DARK_GRAY_900};
   font-weight: bold;
   margin-bottom: 2rem;
+  word-break: break-all;
 `;
 
 const Tags = styled.div`
@@ -173,6 +179,7 @@ export {
   EditButtonStyle,
   DeleteButtonStyle,
   CardInner,
+  MainHeader,
   SubHeader,
   SubHeaderRightContent,
   Mission,
