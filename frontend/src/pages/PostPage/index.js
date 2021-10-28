@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { requestGetPost, requestPostScrap, requestDeleteScrap } from '../../service/requests';
+import {
+  requestGetPost,
+  requestPostScrap,
+  requestDeleteScrap,
+  requestPostLike,
+  requestDeleteLike,
+} from '../../service/requests';
 
 import { Button, BUTTON_SIZE, Card, ProfileChip } from '../../components';
 import { Viewer } from '@toast-ui/react-editor';
@@ -37,12 +43,14 @@ import unScrapIcon from '../../assets/images/scrap_filled.svg';
 import unLikeIcon from '../../assets/images/heart.svg';
 import likeIcon from '../../assets/images/heart-filled.svg';
 import useSnackBar from '../../hooks/useSnackBar';
+import debounce from '../../utils/debounce';
 
 const PostPage = () => {
   const history = useHistory();
   const { id: postId } = useParams();
 
   const [post, setPost] = useState({});
+  const [likeInfo, setLikeInfo] = useState({ liked: false, likesCount: 0 });
 
   const { NotFound } = useNotFound();
   const { deleteData: deletePost } = usePost({});
@@ -131,10 +139,40 @@ const PostPage = () => {
       const data = await response.json();
 
       setPost(data);
+      setLikeInfo({ liked: data.liked, likesCount: data.likesCount });
     } catch (error) {
       console.error(error);
     }
   }, [accessToken, postId]);
+
+  const postLike = async () => {
+    try {
+      const response = await requestPostLike(accessToken, postId);
+
+      setLikeInfo(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteLike = async () => {
+    try {
+      const response = await requestDeleteLike(accessToken, postId);
+
+      setLikeInfo(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const toggleLike = () => {
+    setLikeInfo(({ liked, likesCount }) => ({
+      liked: !liked,
+      likesCount: liked ? likesCount - 1 : likesCount + 1,
+    }));
+
+    likeInfo.liked ? debounce(() => deleteLike(), 300) : debounce(() => postLike(), 300);
+  };
 
   useEffect(() => {
     getPostDetail();
@@ -196,15 +234,16 @@ const PostPage = () => {
               ))}
             </Tags>
             <ButtonIconWrapper>
-              {post?.liked ? (
+              {likeInfo?.liked ? (
                 <Button
                   type="button"
                   size="X_SMALL"
                   icon={likeIcon}
                   alt="좋아요 아이콘"
                   css={LikeIconStyle}
+                  onClick={toggleLike}
                 >
-                  {post.likesCount}
+                  {likeInfo?.likesCount ?? 1}
                 </Button>
               ) : (
                 <Button
@@ -213,8 +252,9 @@ const PostPage = () => {
                   icon={unLikeIcon}
                   alt="좋아요 아이콘"
                   css={LikeIconStyle}
+                  onClick={toggleLike}
                 >
-                  {post.likesCount}
+                  {likeInfo?.likesCount ?? 0}
                 </Button>
               )}
               {post?.scrap ? (
