@@ -23,6 +23,8 @@ import {
   Title,
   SubHeaderRightContent,
   Content,
+  ButtonIconWrapper,
+  LikeIconStyle,
   ScrapButtonStyle,
   BottomContainer,
 } from './styles';
@@ -32,6 +34,8 @@ import { useSelector } from 'react-redux';
 import usePost from '../../hooks/usePost';
 import scrapIcon from '../../assets/images/scrap.svg';
 import unScrapIcon from '../../assets/images/scrap_filled.svg';
+import unLikeIcon from '../../assets/images/heart.svg';
+import likeIcon from '../../assets/images/heart-filled.svg';
 import useSnackBar from '../../hooks/useSnackBar';
 
 const PostPage = () => {
@@ -191,7 +195,28 @@ const PostPage = () => {
                 <span key={id}>{`#${name} `}</span>
               ))}
             </Tags>
-            <div>
+            <ButtonIconWrapper>
+              {post?.liked ? (
+                <Button
+                  type="button"
+                  size="X_SMALL"
+                  icon={likeIcon}
+                  alt="좋아요 아이콘"
+                  css={LikeIconStyle}
+                >
+                  {post.likesCount}
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  size="X_SMALL"
+                  icon={unLikeIcon}
+                  alt="좋아요 아이콘"
+                  css={LikeIconStyle}
+                >
+                  {post.likesCount}
+                </Button>
+              )}
               {post?.scrap ? (
                 <Button
                   type="button"
@@ -211,7 +236,7 @@ const PostPage = () => {
                   onClick={postScrap}
                 />
               )}
-            </div>
+            </ButtonIconWrapper>
           </BottomContainer>
         </CardInner>
       </Card>
