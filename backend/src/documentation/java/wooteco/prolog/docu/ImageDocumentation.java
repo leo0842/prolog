@@ -9,6 +9,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import wooteco.prolog.Documentation;
+import wooteco.prolog.image.application.dto.ImageResponse;
 
 public class ImageDocumentation extends Documentation {
 
@@ -25,6 +26,6 @@ public class ImageDocumentation extends Documentation {
             .extract();
 
         assertThat(extract.statusCode()).isEqualTo(200);
-        assertThat(extract.body().asString()).isEqualTo("imageUrl");
+        assertThat(extract.as(ImageResponse.class).getImageUrl()).isEqualTo("imageUrl");
     }
 }
