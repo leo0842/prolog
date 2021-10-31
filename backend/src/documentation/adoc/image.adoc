@@ -1,0 +1,24 @@
+[[image]]
+== 이미지
+
+=== 이미지 업로드
+
+==== Request
+
+[source,http,options="nowrap"]
+----
+POST /image HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjM1NjYzNjgxLCJleHAiOjE2MzU2NjcyODEsInJvbGUiOiJDUkVXIn0.Hr7_b7muIz-Vd4zZi3iL4WV6EnumwwO0mVJ_nIo0g38
+Content-Type: multipart/form-data; boundary="tN5sOewwAVn_Ms0qwp1q2FKmpCBP0H3v4T"; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Host: localhost:4000
+
+--6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Content-Disposition: form-data; name=image; filename=wedge_image.png
+Content-Type: application/octet-stream
+
+[png 이미지]
+----
+
+==== Response
+
+include::{snippets}/image/insert/http-response.adoc[]
