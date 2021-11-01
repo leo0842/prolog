@@ -26,6 +26,6 @@ public class ImageDocumentation extends Documentation {
             .extract();
 
         assertThat(extract.statusCode()).isEqualTo(200);
-        assertThat(extract.as(ImageResponse.class).getImageUrl()).isEqualTo("imageUrl");
+        assertThat(extract.as(ImageResponse.class).getImageUrl()).isEqualTo("https://dmaxaug2ve9od.cloudfront.net/promotion_banner/jujeol-promotion-cheers.png");
     }
 }
