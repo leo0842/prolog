@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import wooteco.prolog.image.application.ImageService;
 import wooteco.prolog.image.application.dto.ImageResponse;
-import wooteco.prolog.image.domain.Image;
 
 @RestController
 @RequestMapping("/image")
