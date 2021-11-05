@@ -205,6 +205,12 @@ const requestSetDefaultAbility = (accessToken, field) =>
     },
   });
 
+const requestImageUpload = (formData) =>
+  fetch(`${BASE_URL}/image`, {
+    method: 'POST',
+    body: formData,
+  });
+
 export {
   requestGetPosts,
   requestGetPost,
@@ -231,4 +237,5 @@ export {
   requestPostScrap,
   requestDeleteScrap,
   requestGetMyScrap,
+  requestImageUpload,
 };

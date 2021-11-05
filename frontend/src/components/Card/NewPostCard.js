@@ -1,16 +1,20 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { Card, CARD_SIZE, CreatableSelectBox } from '..';
 import { Editor } from '@toast-ui/react-editor';
 import { EditorWrapper, TitleCount, TitleInput } from './NewPostCard.styles';
-import { ALERT_MESSAGE, PLACEHOLDER, POST_TITLE } from '../../constants';
+import { PLACEHOLDER, POST_TITLE } from '../../constants';
 
 import '@toast-ui/editor/dist/toastui-editor.css';
 import 'prismjs/themes/prism.css';
 import Prism from 'prismjs';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js';
+import useSnackBar from '../../hooks/useSnackBar';
+import useCard from '../../hooks/useCard';
 
 const NewPostCard = forwardRef(({ postOrder, tagOptions }, ref) => {
   const [title, setTitle] = useState('');
+  const { isSnackBarOpen, SnackBar } = useSnackBar();
+  const { uploadImage } = useCard();
 
   const assignRefValue = (key, value) =>
     (ref.current[postOrder] = { ...ref.current[postOrder], [key]: value });
@@ -54,14 +58,12 @@ const NewPostCard = forwardRef(({ postOrder, tagOptions }, ref) => {
           plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
           ref={(element) => assignRefValue('content', element)}
           hooks={{
-            addImageBlobHook: async (blob, callback) => {
-              alert(ALERT_MESSAGE.FAIL_TO_UPLOAD_IMAGE);
-              return false;
-            },
+            addImageBlobHook: uploadImage,
           }}
         />
       </EditorWrapper>
       <CreatableSelectBox options={tagOptions} placeholder={PLACEHOLDER.TAG} onChange={selectTag} />
+      {isSnackBarOpen && <SnackBar />}
     </Card>
   );
 });

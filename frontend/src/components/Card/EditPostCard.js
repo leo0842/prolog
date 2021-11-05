@@ -10,6 +10,8 @@ import Prism from 'prismjs';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js';
 
 import { POST_TITLE } from '../../constants';
+import useSnackBar from '../../hooks/useSnackBar';
+import useCard from '../../hooks/useCard';
 
 const TitleInput = styled.input`
   width: 100%;
@@ -30,6 +32,8 @@ const TitleInput = styled.input`
 `;
 
 const EditPostCard = forwardRef(({ post, tagOptions }, ref) => {
+  const { uploadImage } = useCard();
+  const { isSnackBarOpen, SnackBar } = useSnackBar();
   const { title, tags, content } = post;
   const prevTags = tags?.map((tag) => ({
     value: tag.name,
@@ -71,6 +75,9 @@ const EditPostCard = forwardRef(({ post, tagOptions }, ref) => {
         ref={(element) => assignRefValue('content', element)}
         extendedAutolinks={true}
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+        hooks={{
+          addImageBlobHook: uploadImage,
+        }}
       />
       <CreatableSelectBox
         defaultValue={prevTags}
@@ -78,6 +85,7 @@ const EditPostCard = forwardRef(({ post, tagOptions }, ref) => {
         placeholder="#태그선택"
         onChange={selectTag}
       />
+      {isSnackBarOpen && <SnackBar />}
     </Card>
   );
 });
