@@ -36,6 +36,7 @@ jobs:
       - name: Generate deployment package
         run: |
           cd backend
+          rm -rf deploy
           mkdir -p deploy
           cp build/libs/*.jar deploy/application.jar
           cp -r .ebextensions deploy/.ebextensions
