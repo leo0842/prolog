@@ -1,4 +1,8 @@
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { BASE_URL } from '../configs/environment';
+import LOCAL_STORAGE_KEY from '../constants/localStorage';
+import { Mission, StudylogForm, Tag } from '../models/Studylogs';
+import { getLocalStorageItem } from '../utils/localStorage';
 
 export const requestGetPopularStudylogs = ({ accessToken }: { accessToken?: string }) => {
   if (accessToken) {
@@ -65,3 +69,31 @@ export const requestGetStudylogs = ({
     );
   }
 };
+
+export type ResponseError = { code: number; messsage: string };
+
+export const httpRequester = axios.create({
+  baseURL: BASE_URL,
+});
+
+const getAuthConfig = (accessToken: string, config?: AxiosRequestConfig) =>
+  accessToken
+    ? {
+        headers: { Authorization: 'Bearer ' + accessToken },
+        ...config,
+      }
+    : { ...config };
+
+export const requestGetTags = (): Promise<AxiosResponse<Tag[]>> => httpRequester.get('/tags');
+export const requestGetMissions = (): Promise<AxiosResponse<Mission[]>> =>
+  httpRequester.get('/missions');
+
+/** 작성 및 수정 **/
+export const requestPostStudylog = ({
+  accessToken,
+  data,
+}: {
+  accessToken: string;
+  data: StudylogForm;
+}): Promise<AxiosResponse<null, AxiosError>> =>
+  httpRequester.post('/studylogs', data, getAuthConfig(accessToken));

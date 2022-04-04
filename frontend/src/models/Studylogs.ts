@@ -40,9 +40,13 @@ export interface Studylog {
   likesCount: number;
 }
 
-export interface StudyLogsByFilter {
+export interface StudyLogList {
   data: Studylog[];
   totalSize: number;
   totalPage: number;
   currPage: number;
 }
+
+export type StudylogForm = Pick<Studylog, 'title' | 'content' | 'tags'> & {
+  missionId: number | null;
+};
