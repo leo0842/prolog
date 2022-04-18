@@ -1,8 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { BASE_URL } from '../configs/environment';
-import LOCAL_STORAGE_KEY from '../constants/localStorage';
-import { Mission, StudylogForm, Tag } from '../models/Studylogs';
-import { getLocalStorageItem } from '../utils/localStorage';
+import { Mission, Session, StudylogForm, Tag } from '../models/Studylogs';
 
 export const requestGetPopularStudylogs = ({ accessToken }: { accessToken?: string }) => {
   if (accessToken) {
@@ -87,6 +85,8 @@ const getAuthConfig = (accessToken: string, config?: AxiosRequestConfig) =>
 export const requestGetTags = (): Promise<AxiosResponse<Tag[]>> => httpRequester.get('/tags');
 export const requestGetMissions = (): Promise<AxiosResponse<Mission[]>> =>
   httpRequester.get('/missions');
+export const requestGetSessions = (): Promise<AxiosResponse<Session[]>> =>
+  httpRequester.get('/sessions');
 
 /** 작성 및 수정 **/
 export const requestPostStudylog = ({

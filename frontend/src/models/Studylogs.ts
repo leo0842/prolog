@@ -17,6 +17,10 @@ export interface Mission {
   name: string;
   level?: Level;
 }
+export interface Session {
+  id: number;
+  name: string;
+}
 
 export interface Tag {
   id: number;
@@ -29,6 +33,7 @@ export interface Studylog {
   author: Author;
   content: string;
   mission: Mission;
+  session: Session;
   title: string;
   tags: Tag[];
   createdAt: Date;
@@ -49,4 +54,5 @@ export interface StudyLogList {
 
 export type StudylogForm = Pick<Studylog, 'title' | 'content' | 'tags'> & {
   missionId: number | null;
+  sessionId: number | null;
 };

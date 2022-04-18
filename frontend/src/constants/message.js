@@ -16,6 +16,8 @@ const ALERT_MESSAGE = {
   OVER_PROFILE_NICKNAME_MAX_LENGTH: '닉네임은 4글자 이하로 입력해주세요.',
 
   CANNOT_EDIT_OTHERS: '본인이 작성하지 않은 글은 수정할 수 없습니다.',
+  NO_CONTENT: '내용을 입력하세요',
+  NO_TITLE: '제목을 입력하세요',
 };
 
 const ERROR_MESSAGE = {
