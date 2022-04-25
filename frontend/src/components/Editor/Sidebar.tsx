@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from '@emotion/react';
-import CreatableSelectBox from '../../components/CreatableSelectBox/CreatableSelectBox';
+import CreatableSelectBox from '../CreatableSelectBox/CreatableSelectBox';
 import { COLOR } from '../../enumerations/color';
-import SelectBox from '../../components/Controls/SelectBox';
+import SelectBox from '../Controls/SelectBox';
 import { PLACEHOLDER } from '../../constants';
 import { Mission, Session, Tag } from '../../models/Studylogs';
 import styled from '@emotion/styled';
 import { useMissions, useSessions, useTags } from '../../hooks/queries/filters';
+import { getRowGapStyle } from '../../styles/layout.styles';
 
 interface SidebarProps {
   selectedSessionId: Session['id'] | null;
@@ -19,26 +19,23 @@ interface SidebarProps {
 }
 
 const SidebarWrapper = styled.aside`
-  width: 240px;
+  width: 24rem;
   padding: 1rem;
-  background-color: white;
-  border-radius: 20px;
-  border: 1px solid ${COLOR.LIGHT_GRAY_100}; ;
-`;
 
-const FilterList = styled.ul`
-  > li:not(:last-child) {
-    margin-bottom: 16px;
-  }
+  background-color: white;
+  border: 1px solid ${COLOR.LIGHT_GRAY_100};
+  border-radius: 2rem;
 `;
 
 const FilterTitle = styled.h3`
-  border-bottom: 1px solid ${COLOR.DARK_GRAY_500};
   margin-bottom: 10px;
-  line-height: 1.5;
-  font-weight: bold;
   padding-bottom: 2px;
+
+  border-bottom: 1px solid ${COLOR.DARK_GRAY_500};
+
   font-size: 1.8rem;
+  font-weight: bold;
+  line-height: 1.5;
 `;
 
 const Sidebar = ({
@@ -59,7 +56,7 @@ const Sidebar = ({
 
   return (
     <SidebarWrapper>
-      <FilterList>
+      <ul css={[getRowGapStyle('1.6rem')]}>
         <li>
           <FilterTitle>session</FilterTitle>
           <div>
@@ -67,10 +64,6 @@ const Sidebar = ({
               options={sessionOptions}
               placeholder="+ 세션 추가"
               onChange={onSelectSession}
-              defaultOption={{
-                value: 1,
-                label: '프론트엔드',
-              }}
             />
           </div>
         </li>
@@ -92,7 +85,7 @@ const Sidebar = ({
             onChange={onSelectTag}
           />
         </li>
-      </FilterList>
+      </ul>
     </SidebarWrapper>
   );
 };

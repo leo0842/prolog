@@ -5,31 +5,16 @@ import { css } from '@emotion/react';
 import { useState, ChangeEventHandler, FormEventHandler, useRef } from 'react';
 import { MainContentStyle } from '../../PageRouter';
 
-import { FlexStyle, JustifyContentEndStyle } from '../../styles/flex.styles';
-
 import { ERROR_MESSAGE, ALERT_MESSAGE, PATH } from '../../constants';
 
 import { StudylogForm } from '../../models/Studylogs';
-import { COLOR } from '../../enumerations/color';
 import { useMutation } from 'react-query';
 import { getLocalStorageItem } from '../../utils/localStorage';
 import LOCAL_STORAGE_KEY from '../../constants/localStorage';
 import { SUCCESS_MESSAGE } from '../../constants/message';
 import { useHistory } from 'react-router-dom';
 import { requestPostStudylog } from '../../apis/studylogs';
-import Sidebar from './Sidebar';
-import Editor from '../../components/Editor/Editor';
-
-const SubmitButtonStyle = css`
-  width: 100%;
-  background-color: ${COLOR.LIGHT_BLUE_300};
-  padding: 1rem 0;
-  border-radius: 16px;
-
-  :hover {
-    background-color: ${COLOR.LIGHT_BLUE_500};
-  }
-`;
+import StudylogEditor from '../../components/Editor/StudylogEditor';
 
 const NewStudylogPage = () => {
   const history = useHistory();
@@ -63,7 +48,6 @@ const NewStudylogPage = () => {
     setStudylogContent({ ...studylogContent, missionId: Number(mission.value) });
 
   const onSelectSession = (session: { value: string; label: string }) => {
-    console.log(session);
     setStudylogContent({ ...studylogContent, sessionId: Number(session.value) });
   };
 
@@ -112,57 +96,22 @@ const NewStudylogPage = () => {
       css={[
         MainContentStyle,
         css`
-          padding: 10px 0 100px;
+          padding: 1rem 0 10rem;
         `,
       ]}
     >
-      <form onSubmit={onCreateStudylog}>
-        <div
-          css={[
-            css`
-              display: flex;
-
-              > *:not(:last-child) {
-                margin-right: 10px;
-              }
-            `,
-          ]}
-        >
-          <div
-            css={[
-              css`
-                flex-grow: 1;
-              `,
-            ]}
-          >
-            <Editor
-              height="80rem"
-              title={studylogContent.title}
-              editorContentRef={editorContentRef}
-              onChangeTitle={onChangeTitle}
-            />
-            <div
-              css={[
-                FlexStyle,
-                JustifyContentEndStyle,
-                css`
-                  margin-top: 1rem;
-                `,
-              ]}
-            >
-              <button css={[SubmitButtonStyle]}>작성 완료</button>
-            </div>
-          </div>
-          <Sidebar
-            selectedMissionId={studylogContent.missionId}
-            selectedSessionId={studylogContent.sessionId}
-            selectedTagList={studylogContent.tags}
-            onSelectTag={onSelectTag}
-            onSelectMission={onSelectMission}
-            onSelectSession={onSelectSession}
-          />
-        </div>
-      </form>
+      <StudylogEditor
+        title={studylogContent.title}
+        contentRef={editorContentRef}
+        selectedMissionId={studylogContent.missionId}
+        selectedSessionId={studylogContent.sessionId}
+        selectedTags={studylogContent.tags}
+        onChangeTitle={onChangeTitle}
+        onSelectMission={onSelectMission}
+        onSelectSession={onSelectSession}
+        onSelectTag={onSelectTag}
+        onSubmit={onCreateStudylog}
+      />
     </div>
   );
 };
