@@ -20,7 +20,7 @@ const selectStyles = {
     cursor: 'pointer',
     backgroundColor: COLOR.LIGHT_GRAY_100,
   }),
-  indicatorsContainer: (styles) => ({ ...styles, display: 'none' }),
+  indicatorsContainer: (styles) => ({ ...styles }),
   valueContainer: (styles) => ({ ...styles, padding: '0' }),
   menu: (styles) => ({
     ...styles,
@@ -40,6 +40,9 @@ interface SelectBoxProps {
   placeholder?: string;
   onChange?: (option: { value: string; label: string }) => void;
   defaultOption?: SelectOption;
+  value?: SelectOption;
+  selectedSessionId?: string;
+  isClearable?: boolean;
 }
 
 const SelectBox: React.VFC<SelectBoxProps> = ({
@@ -47,6 +50,7 @@ const SelectBox: React.VFC<SelectBoxProps> = ({
   options,
   placeholder,
   onChange,
+  value,
   defaultOption,
 }: SelectBoxProps) => (
   <div
@@ -64,15 +68,21 @@ const SelectBox: React.VFC<SelectBoxProps> = ({
       > div:hover {
         border: 2px solid ${COLOR.LIGHT_BLUE_500};
       }
+
+      .css-clear-indicator {
+        display: block;
+      }
     `}
   >
     <Select
+      isClearable={true}
       isMulti={isMulti}
       options={options}
       placeholder={placeholder}
       onChange={onChange}
       styles={selectStyles}
       defaultValue={defaultOption}
+      value={value}
       // theme={(theme) => ({ ...theme, colors: { ...theme.colors, primary: 'transparent' } })}
     />
   </div>

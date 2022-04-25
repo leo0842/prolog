@@ -27,6 +27,7 @@ interface StudylogEditorProps {
   selectedMissionId?: number | null;
   selectedSessionId?: number | null;
   selectedTags?: Tag[];
+  content?: string;
 
   onChangeTitle: ChangeEventHandler<HTMLInputElement>;
   onSelectMission: (mission: SelectOption) => void;
@@ -41,7 +42,7 @@ const StudylogEditor = ({
   selectedSessionId = null,
   selectedTags = [],
   contentRef,
-
+  content,
   onChangeTitle,
   onSelectMission,
   onSelectSession,
@@ -57,6 +58,7 @@ const StudylogEditor = ({
             title={title}
             editorContentRef={contentRef}
             onChangeTitle={onChangeTitle}
+            content={content}
           />
           <div
             css={[

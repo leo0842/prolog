@@ -54,6 +54,9 @@ const Sidebar = ({
   const missionOptions = missions.map(({ id, name }) => ({ value: `${id}`, label: `${name}` }));
   const sessionOptions = sessions.map(({ id, name }) => ({ value: `${id}`, label: `${name}` }));
 
+  const selectedSession = sessions.find(({ id }) => id === selectedSessionId);
+  const selectedMission = missions.find(({ id }) => id === selectedMissionId);
+
   return (
     <SidebarWrapper>
       <ul css={[getRowGapStyle('1.6rem')]}>
@@ -64,6 +67,11 @@ const Sidebar = ({
               options={sessionOptions}
               placeholder="+ 세션 추가"
               onChange={onSelectSession}
+              value={
+                selectedSession
+                  ? { value: `${selectedSession.id}`, label: selectedSession?.name }
+                  : undefined
+              }
             />
           </div>
         </li>
@@ -74,6 +82,12 @@ const Sidebar = ({
               options={missionOptions}
               placeholder="+ 미션 추가"
               onChange={onSelectMission}
+              selectedSessionId={selectedSessionId?.toString()}
+              value={
+                selectedMission
+                  ? { value: `${selectedMission.id}`, label: selectedMission?.name }
+                  : undefined
+              }
             />
           </div>
         </li>
@@ -83,6 +97,7 @@ const Sidebar = ({
             options={tagOptions}
             placeholder={PLACEHOLDER.TAG}
             onChange={onSelectTag}
+            value={selectedTagList.map(({ name }) => ({ value: name, label: `#${name}` }))}
           />
         </li>
       </ul>

@@ -51,17 +51,20 @@ const Editor = (props: EditorProps): JSX.Element => {
           <input placeholder={titlePlaceholder} value={title} onChange={onChangeTitle} />
         </div>
       )}
-      <ToastEditor
-        ref={(element) => {
-          editorContentRef.current = element;
-        }}
-        initialValue={content || ''}
-        height={getSize(height)}
-        initialEditType="markdown"
-        toolbarItems={toolbarItems}
-        extendedAutolinks={true}
-        plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
-      />
+      {/* FIXME: 임시방편 editor에 상태 값을 초기값으로 넣는 법 찾기 */}
+      {!!content && (
+        <ToastEditor
+          ref={(element) => {
+            editorContentRef.current = element;
+          }}
+          initialValue={content || ''}
+          height={getSize(height)}
+          initialEditType="markdown"
+          toolbarItems={toolbarItems}
+          extendedAutolinks={true}
+          plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+        />
+      )}
     </div>
   );
 };
