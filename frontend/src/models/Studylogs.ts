@@ -52,7 +52,8 @@ export interface StudyLogList {
   currPage: number;
 }
 
-export type StudylogForm = Pick<Studylog, 'title' | 'content' | 'tags'> & {
+export type StudylogForm = Pick<Studylog, 'title' | 'tags'> & {
+  content: string | null;
   missionId: number | null;
   sessionId: number | null;
 };

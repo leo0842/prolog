@@ -33,7 +33,7 @@ const EditStudylogPage = () => {
 
   const [studylogContent, setStudylogContent] = useState<StudylogForm>({
     title: '',
-    content: '',
+    content: null,
     missionId: null,
     sessionId: null,
     tags: [],

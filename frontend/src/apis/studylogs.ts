@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { BASE_URL } from '../configs/environment';
 import { Mission, Session, Studylog, StudylogForm, Tag } from '../models/Studylogs';
 

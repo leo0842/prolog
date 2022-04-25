@@ -19,7 +19,7 @@ interface EditorProps {
   hasTitle?: boolean;
   titlePlaceholder?: string;
   editorContentRef: MutableRefObject<unknown>;
-  content?: string;
+  content?: string | null;
   onChangeTitle?: ChangeEventHandler<HTMLInputElement>;
   onChangeContent?: () => void;
   toolbarItems?: string[][];
@@ -52,12 +52,12 @@ const Editor = (props: EditorProps): JSX.Element => {
         </div>
       )}
       {/* FIXME: 임시방편 editor에 상태 값을 초기값으로 넣는 법 찾기 */}
-      {!!content && (
+      {content !== null && (
         <ToastEditor
           ref={(element) => {
             editorContentRef.current = element;
           }}
-          initialValue={content || ''}
+          initialValue={content}
           height={getSize(height)}
           initialEditType="markdown"
           toolbarItems={toolbarItems}

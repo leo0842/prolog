@@ -103,6 +103,7 @@ const NewStudylogPage = () => {
       <StudylogEditor
         title={studylogContent.title}
         contentRef={editorContentRef}
+        content={''}
         selectedMissionId={studylogContent.missionId}
         selectedSessionId={studylogContent.sessionId}
         selectedTags={studylogContent.tags}

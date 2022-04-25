@@ -27,7 +27,7 @@ interface StudylogEditorProps {
   selectedMissionId?: number | null;
   selectedSessionId?: number | null;
   selectedTags?: Tag[];
-  content?: string;
+  content?: string | null;
 
   onChangeTitle: ChangeEventHandler<HTMLInputElement>;
   onSelectMission: (mission: SelectOption) => void;
