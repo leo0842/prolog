@@ -1,6 +1,7 @@
 package wooteco.prolog.report.ui;
 
 import java.net.URI;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -62,5 +63,12 @@ public class ReportController {
         reportService.deleteReport(member, reportId);
 
         return ResponseEntity.noContent().build();
+    }
+
+//    @MemberOnly
+    @GetMapping("/reports")
+    public ResponseEntity<PageableResponse<ReportResponse>> getReports(@PageableDefault(size = 20, direction = Direction.DESC, sort = "id") Pageable pageable) {
+        PageableResponse<ReportResponse> response = reportService.getAllReports(pageable);
+        return ResponseEntity.ok(response);
     }
 }
